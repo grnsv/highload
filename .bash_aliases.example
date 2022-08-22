@@ -1,0 +1,16 @@
+alias docker-up='docker compose up -d --build'
+alias docker-down='docker compose down'
+alias docker-restart='docker-down && docker-up'
+alias docker-stop='docker stop $(docker ps -qa) && docker rm $(docker ps -qa)'
+
+dphp() {
+    command docker compose exec app php "$@"
+}
+
+dnpm() {
+    command docker compose exec node npm "$@"
+}
+
+dcomposer() {
+    command docker compose exec app composer "$@"
+}
