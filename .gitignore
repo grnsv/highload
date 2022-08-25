@@ -13,4 +13,7 @@ auth.json
 npm-debug.log
 yarn-error.log
 /.idea
-/.vscode
+# /.vscode
+/docker/db/master/.data
+/docker/db/slaves/*/.data
+/docker/nginx/nginx_log
