@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SortController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['as' => 'sort.', 'prefix' => 'sort'], function() {
+    Route::get('/bubble', [SortController::class, 'bubble'])->name('bubble');
+    Route::get('/quick', [SortController::class, 'quick'])->name('quick');
 });
