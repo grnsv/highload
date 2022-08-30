@@ -58,22 +58,20 @@ services:
         networks:
             - highload
 
-    db-master:
-        container_name: db-master
-        image: mysql:latest
+    db:
+        container_name: db
+        image: mariadb:latest
         ports:
             - ${DB_PORT}:3306
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
-            MYSQL_ROOT_HOST: "%"
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-        volumes:
-            - ./docker/db/master/master.sql:/docker-entrypoint-initdb.d/start.sql
-            - ./docker/db/master/mysql.master.cnf:/etc/mysql/conf.d/mysql.master.cnf
-            - ./docker/db/master/.data/mysql:/var/lib/mysql:rw
+        # volumes:
+        #     - ./docker/db/master/master.sql:/docker-entrypoint-initdb.d/start.sql
+        #     - ./docker/db/master/mysql.master.cnf:/etc/mysql/conf.d/mysql.master.cnf
+        #     - ./docker/db/master/.data/mysql:/var/lib/mysql:rw
         networks:
             - highload
 
