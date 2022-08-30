@@ -58,8 +58,8 @@ services:
         networks:
             - highload
 
-    db:
-        container_name: db
+    db-master:
+        container_name: db-master
         image: mariadb:latest
         ports:
             - ${DB_PORT}:3306
@@ -68,10 +68,66 @@ services:
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
-        # volumes:
-        #     - ./docker/db/master/master.sql:/docker-entrypoint-initdb.d/start.sql
-        #     - ./docker/db/master/mysql.master.cnf:/etc/mysql/conf.d/mysql.master.cnf
-        #     - ./docker/db/master/.data/mysql:/var/lib/mysql:rw
+        volumes:
+            - ./docker/db/master/master.sql:/docker-entrypoint-initdb.d/start.sql
+            - ./docker/db/master/maria.master.cnf:/etc/mysql/conf.d/maria.master.cnf
+            - ./docker/db/master/.data/mysql:/var/lib/mysql:rw
+        networks:
+            - highload
+
+    db-email:
+        container_name: db_email
+        image: mariadb:latest
+        env_file:
+            - ./docker/db/slaves/email/.env.slave
+        volumes:
+            - ./docker/db/slaves/slave.sql:/docker-entrypoint-initdb.d/start.sql
+            - ./docker/db/slaves/email/maria.slave.cnf:/etc/mysql/conf.d/maria.slave.cnf
+            - ./docker/db/slaves/email/.data/mysql:/var/lib/mysql:rw
+        ports:
+            - "3307:3306"
+        networks:
+            - highload
+
+    db-sms:
+        container_name: db_sms
+        image: mariadb:latest
+        env_file:
+            - ./docker/db/slaves/sms/.env.slave
+        volumes:
+            - ./docker/db/slaves/slave.sql:/docker-entrypoint-initdb.d/start.sql
+            - ./docker/db/slaves/sms/maria.slave.cnf:/etc/mysql/conf.d/maria.slave.cnf
+            - ./docker/db/slaves/sms/.data/mysql:/var/lib/mysql:rw
+        ports:
+            - "3308:3306"
+        networks:
+            - highload
+
+    db-slave-3:
+        container_name: db_slave_3
+        image: mariadb:latest
+        env_file:
+            - ./docker/db/slaves/slave_3/.env.slave
+        volumes:
+            - ./docker/db/slaves/slave.sql:/docker-entrypoint-initdb.d/start.sql
+            - ./docker/db/slaves/slave_3/maria.slave.cnf:/etc/mysql/conf.d/maria.slave.cnf
+            - ./docker/db/slaves/slave_3/.data/mysql:/var/lib/mysql:rw
+        ports:
+            - "3309:3306"
+        networks:
+            - highload
+
+    db-slave-4:
+        container_name: db_slave_4
+        image: mariadb:latest
+        env_file:
+            - ./docker/db/slaves/slave_4/.env.slave
+        volumes:
+            - ./docker/db/slaves/slave.sql:/docker-entrypoint-initdb.d/start.sql
+            - ./docker/db/slaves/slave_4/maria.slave.cnf:/etc/mysql/conf.d/maria.slave.cnf
+            - ./docker/db/slaves/slave_4/.data/mysql:/var/lib/mysql:rw
+        ports:
+            - "3310:3306"
         networks:
             - highload
 
