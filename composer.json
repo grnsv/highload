@@ -5,14 +5,17 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "opcodesio/log-viewer": "^1.0"
+        "opcodesio/log-viewer": "^1.0",
+        "ext-memcached": "*",
+        "ext-redis": "*"
     },
     "require-dev": {
+        "ext-xdebug": "*",
         "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",

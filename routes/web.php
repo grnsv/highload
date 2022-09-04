@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MemcachedController;
+use App\Http\Controllers\RedisController;
 use App\Http\Controllers\SortController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +24,6 @@ Route::group(['as' => 'sort.', 'prefix' => 'sort'], function() {
     Route::get('/bubble', [SortController::class, 'bubble'])->name('bubble');
     Route::get('/quick', [SortController::class, 'quick'])->name('quick');
 });
+
+Route::get('/memcached', [MemcachedController::class, 'index'])->name('memcached');
+Route::get('/redis', [RedisController::class, 'index'])->name('redis');
