@@ -197,6 +197,21 @@ services:
         networks:
             - highload
 
+    rabbit:
+        container_name: rabbitMQ
+        build: ./docker/rabbit
+        ports:
+            - '5672:5672'
+            - '15672:15672'
+        volumes:
+            - ./docker/rabbit/data/mnesia:/var/lib/rabbitmq/mnesia
+            - ./docker/rabbit/log:/var/log/rabbit:rw
+            - ./docker/rabbit/init.sh:/init.sh
+        hostname: rabbitMQ
+        networks:
+            - highload
+
+
 networks:
     highload:
         driver: bridge

@@ -17,3 +17,4 @@ yarn-error.log
 /docker/db/master/.data
 /docker/db/slaves/*/.data
 /docker/nginx/nginx_log
+/docker/rabbit/data
